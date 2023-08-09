@@ -1,84 +1,56 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit"
+import api from "../api"
+export const getPizzas = createAsyncThunk(
+  'getPizzas/pizzaSlice',
+
+  async () => {
+
+    try {
+      const response = await api.fetchPizzas();
+      if (response.status >= 400) {
+        console.error("Server error:", response.status)
+        return isRejectedWithValue("Server error")
+      }
+
+      return response.data
+    } catch (error) {
+      console.log("Error:", error);
+      return isRejectedWithValue({ message: 'Error' })
+    }
+  }
+)
 
 export const pizzaSlice = createSlice({
   name: 'pizza',
   initialState: {
-    pizzaItems: [
-      {
-        id: 1,
-        name: 'Чизбургер пиццa',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '395',
-        count: 1
-      },
-      {
-        id: 2,
-        name: 'Сырная пицца',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '495',
-        count: 1
+    pizzas: [],
+    isPending: null,
+    error: null
 
-      },
-      {
-        id: 3,
-        name: 'Креветки по-азиатски',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '295',
-        count: 1
-
-      },
-      {
-        id: 4,
-        name: 'Сырный цыпленок',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '495',
-        count: 1
-
-      },
-      {
-        id: 5,
-        name: 'Чизбургер пиццa',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '395',
-        count: 1
-
-      },
-      {
-        id: 6,
-        name: 'Сырная пицца',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '495',
-        count: 1
-
-      },
-      {
-        id: 7,
-        name: 'Креветки по-азиатски',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '295',
-        count: 1
-
-      },
-      {
-        id: 8,
-        name: 'Сырный цыпленок',
-        imgUrl: 'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg',
-        price: '495',
-        count: 1
-      },
-
-    ]
   },
   reducers: {
     incrementPizzaCount: (state, { payload: currentId }) => {
-      console.log(currentId);
-      
-      const updatedItems = state.pizzaItems.map(p => ({
+      state.pizzaItems = state.pizzaItems.map(p => ({
         ...p,
         count: p.id === currentId ? p.count += 1 : p.count
       }))
-  
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPizzas.pending, (state) => {
+        state.isPending = true
+      })
+      .addCase(getPizzas.fulfilled, (state, { payload }) => {
+        state.isPending = false
+        state.pizzas = payload
+      })
+      .addCase(getPizzas.rejected, (state, action) => {
+        state.status = false
+        state.error = action.payload.message
+        console.log(state.error);
+
+      })
   }
 })
 

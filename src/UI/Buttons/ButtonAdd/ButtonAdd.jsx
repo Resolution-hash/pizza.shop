@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import s from './ButtonAdd.module.scss';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -24,7 +24,7 @@ const ButtonAdd = ({ count, id }) => {
         />
       </svg>
       <span>Добавить</span>
-      <i>{count}</i>
+      <i className={count && cn(s.circle, s.show)}>{count}</i>
     </button>
   );
 };

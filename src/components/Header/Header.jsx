@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.scss';
-import logo from '../../images/pizza-logo.svg';
+import logo from '../../assets/images/pizza-logo.svg';
 import ButtonCart from '../../UI/Buttons/ButtonCart/ButtonCart';
 
 const Header = () => {

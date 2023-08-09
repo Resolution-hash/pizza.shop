@@ -1,7 +1,19 @@
-import React from 'react'
-import s from "./Sort.module.scss"
+import React from 'react';
+import s from './Sort.module.scss';
 
 const Sort = () => {
+  const sortList = ['популярности', 'цене', 'алфавиту'];
+  const [IsVisible, setIsVisible] = React.useState(false);
+  const [selectSort, setSelectSort] = React.useState(0);
+
+ 
+
+  const option = sortList[selectSort];
+  const onSelectSort = (index) => {
+    setSelectSort(index);
+    setIsVisible(false);
+  };
+
   return (
     <div className={s.sort}>
       <div className={s.sort__label}>
@@ -18,17 +30,28 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsVisible(!IsVisible)}>{option}</span>
       </div>
-      <div className={s.sort__popup}>
-        <ul>
-          <li className={s.active}>популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {IsVisible && (
+        <div className={s.sort__popup}>
+          <ul>
+            {sortList.map((title, index) => {
+              return (
+                <li
+                  key={title}
+                  className={selectSort === index ? s.active : ''}
+                  onClick={() => onSelectSort(index)}
+                >
+                  {title}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+      
     </div>
   );
-}
+};
 
-export default Sort
+export default Sort;
