@@ -31,19 +31,21 @@ const PizzaSelector = ({ types, sizes }) => {
   });
 
   return (
-    <div className={s.selector}>
-      <ul>
-        {/* <li className={s.active}>тонкое</li>
+    <div className={s.wrapper}>
+      <div className={s.selector}>
+        <ul className={s.typesList}>
+          {/* <li className={s.active}>тонкое</li>
         <li>традиционное</li> */}
-        {typesPizzasElements}
-      </ul>
-      <ul>
-        {sizesPizzasElements}
+          {typesPizzasElements}
+        </ul>
+        <ul>
+          {sizesPizzasElements}
 
-        {/* <li className={s.active}>26 см.</li>
+          {/* <li className={s.active}>26 см.</li>
         <li>30 см.</li>
         <li>40 см.</li> */}
-      </ul>
+        </ul>
+      </div>
     </div>
   );
 };

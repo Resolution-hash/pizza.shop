@@ -13,9 +13,9 @@ import store from './store/store'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-        <RouterProvider store={store}>
+        <Provider store={store}>
             <App />
-        </RouterProvider>
+        </Provider>
     </BrowserRouter>
 
 );

@@ -1,5 +1,5 @@
-@import './styles/variables';
-@import './styles/normalize';
+@import '../../assets/styles/variables';
+@import '../../assets/styles/normalize';
 
 body {
   background-color: $background;
@@ -21,16 +21,21 @@ body {
     margin: 35px 0;
   }
 
-  &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  // &__items {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: space-between;
+  // }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1400px) {
+      gap: 40px;
+      flex-wrap: wrap;
+    }
   }
 }
 
@@ -306,4 +311,44 @@ body {
       font-size: 18px;
     }
   }
+}
+
+.content__items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-content: center;
+}
+
+@media (max-width: 1400px) {
+  .content__items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .content__items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Экраны шириной от 992px до 1199px */
+@media (max-width: 992px) and (max-width: 1199px) {
+}
+
+/* Экраны шириной от 768px до 991px */
+@media (max-width: 768px) and (max-width: 991px) {
+  .content__items {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Экраны шириной от 576px до 767px */
+@media (max-width: 576px) and (max-width: 767px) {
+}
+
+/* Экраны шириной менее 576px (мобильные телефоны) */
+@media (max-width: 575px) {
 }

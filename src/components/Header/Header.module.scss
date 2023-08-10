@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import '../../assets/styles/variables';
 
 .header {
   border-bottom: 1px solid $gray-line;
@@ -10,13 +10,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
   }
 
   &__logo {
     display: flex;
+    gap: 20px;
+    @media (max-width: 576px) {
+    }
 
     img {
-      margin-right: 15px;
     }
 
     h1 {
@@ -25,10 +33,21 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
     }
 
     p {
       color: #7b7b7b;
     }
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 576px) {
   }
 }

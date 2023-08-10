@@ -1,11 +1,5 @@
-@import './variables';
-@import './libs/normalize';
-
-@import './components/all';
-
-body {
-  background-color: $background;
-}
+@import '../../assets/styles/variables';
+@import '../../assets/styles/normalize';
 
 .wrapper {
   width: calc(100vw - 100px);
@@ -39,13 +33,13 @@ body {
 .container {
   width: $container-width;
   margin: 0 auto;
+}
 
-  &--cart {
-    max-width: 820px;
-    margin: 90px auto;
-    .content__title {
-      margin: 0;
-    }
+.containerCart {
+  max-width: 820px;
+  margin: 90px auto;
+  .content__title {
+    margin: 0;
   }
 }
 

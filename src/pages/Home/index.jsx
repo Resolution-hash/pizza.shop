@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import Header from '../../components/Header';
 import Categories from '../../components/Categories';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import Sort from '../../components/Sort';
 import s from './index.module.scss';
+import { getPizzas } from '../../store/pizzaSlice';
+import PizzaBlock from '../../components/PizzaBlock';
+import Skeleton from '../../components/PizzaBlock/Skeleton';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,23 +20,20 @@ const Home = () => {
     return <PizzaBlock key={p.id} pizza={p} />;
   });
   return (
-    <div className={s.wrapper}>
-      <Header />
-      <div className={s.content}>
-        <div className={s.container}>
-          <div className={s.content__top}>
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className={s.content__title}>Все пиццы</h2>
-          <div className={s.content__items}>
-            {isPending
-              ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-              : PizzasElements}
-          </div>
+    <>
+      <div className={s.container}>
+        <div className={s.content__top}>
+          <Categories />
+          <Sort />
+        </div>
+        <h2 className={s.content__title}>Все пиццы</h2>
+        <div className={s.content__items}>
+          {isPending
+            ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+            : PizzasElements}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

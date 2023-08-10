@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, isRejectedWithValue, current } from "@reduxjs/toolkit"
 import api from "../api"
 export const getPizzas = createAsyncThunk(
   'getPizzas/pizzaSlice',
@@ -30,7 +30,9 @@ export const pizzaSlice = createSlice({
   },
   reducers: {
     incrementPizzaCount: (state, { payload: currentId }) => {
-      state.pizzaItems = state.pizzaItems.map(p => ({
+      console.log(current(state));
+
+      state.pizzaItems = state.pizzas.map(p => ({
         ...p,
         count: p.id === currentId ? p.count += 1 : p.count
       }))

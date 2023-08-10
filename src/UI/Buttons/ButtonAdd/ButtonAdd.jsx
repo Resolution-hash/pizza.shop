@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './ButtonAdd.module.scss';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
-import { incrementPizzaCount } from '../../../store/pizzaSlice';
 
-const ButtonAdd = ({ count, id }) => {
-  const dispatch = useDispatch();
+const ButtonAdd = () => {
+  let [count, setCount] = useState(0);
+
   return (
     <button
       className={cn(s.button, s.buttonOutline, s.buttonAdd)}
-      onClick={() => dispatch(incrementPizzaCount(id))}
+      onClick={() => setCount((prevCount) => prevCount + 1)}
     >
       <svg
         width='12'
@@ -24,7 +23,7 @@ const ButtonAdd = ({ count, id }) => {
         />
       </svg>
       <span>Добавить</span>
-      <i className={count && cn(s.circle, s.show)}>{count}</i>
+      <i className={count && cn(s.circle, s.show)}>{count > 0 ? count : ''}</i>
     </button>
   );
 };
